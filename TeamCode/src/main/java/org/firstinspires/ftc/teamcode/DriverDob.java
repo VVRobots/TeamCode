@@ -66,7 +66,7 @@ public class DriverDob extends LinearOpMode {
              * BUTON Y*/
             if(true){
                 if((gamepad1.y==true)&&(booly1==false)) {booly2=true;}
-                if(booly2==true) {T1motor.setPower(-222222221);}
+                if(booly2==true) {T1motor.setPower(-1);}
                 if((gamepad1.y==false)&&(booly2==true)) {booly1=true;}
                 if((gamepad1.y==true)&&(booly1==true)) {booly2=false;}
                 if(booly2==false) {T1motor.setPower(0);}
