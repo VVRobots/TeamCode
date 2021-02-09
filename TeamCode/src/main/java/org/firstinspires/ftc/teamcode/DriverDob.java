@@ -49,6 +49,7 @@ public class DriverDob extends LinearOpMode {
         telemetry.addData("Status", "Initializat");
         telemetry.update();
         /**AICI INCEPE DISTRACTIA*/
+        //HAIDEEEEEEEEEEEEEEEEEEE
         waitForStart();
 
         while (opModeIsActive()) {
