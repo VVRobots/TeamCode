@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class DriverDob extends LinearOpMode {
 
     /**DECLARARE VARIABILE/OBIECTE*/
+    //
     private DcMotor FRmotor=null;
     private DcMotor FLmotor=null;
     private DcMotor BRmotor=null;
