@@ -1,7 +1,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
-//Librarii
+//Librarii....
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,7 +22,7 @@ public class DriverDob extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        /**SETUP MOTOARE*/
+        /**SETUP MOTOARE */
         FRmotor=hardwareMap.get(DcMotor.class,"fataDreapta");
         FLmotor=hardwareMap.get(DcMotor.class,"fataStanga");
         BRmotor=hardwareMap.get(DcMotor.class,"spateDreapta");
