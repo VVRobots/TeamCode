@@ -1,4 +1,4 @@
-
+/**Copyright Dobrinel */
 package org.firstinspires.ftc.teamcode;
 
 //Librarii
