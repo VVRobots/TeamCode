@@ -21,6 +21,7 @@ public class DriverDob extends LinearOpMode {
     private DcMotor T2motor=null;
     private Servo SVmotor1=null;
     private Servo SVmotor2=null;
+    private Servo SVmotor3=null;
     boolean booly1=false;
     boolean booly2=false;
 
@@ -36,6 +37,7 @@ public class DriverDob extends LinearOpMode {
         T2motor=hardwareMap.get(DcMotor.class,"motorBrat1");
         SVmotor1=hardwareMap.get(Servo.class,"servoBrat1");
         SVmotor2=hardwareMap.get(Servo.class,"servoBrat2");
+        SVmotor3=hardwareMap.get(Servo.class,"servoBrat3");
 
 
         FRmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -63,6 +65,8 @@ public class DriverDob extends LinearOpMode {
         SVmotor1.setPosition(0);
         SVmotor2.setDirection(Servo.Direction.FORWARD);
         SVmotor2.setPosition(0);
+        SVmotor3.setDirection(Servo.Direction.FORWARD);
+        SVmotor3.setPosition(0.5);
 
         telemetry.addData("Status", "Initializat");
         telemetry.update();
@@ -73,84 +77,78 @@ public class DriverDob extends LinearOpMode {
         while (opModeIsActive()) {
             /**BIND MISCARE PRIMARA ROTI 2 CATE 2 PE LATERALE
              * BUTON JOYSTICK AXA Y*/
-            if(true) {
                 FRmotor.setPower(gamepad1.left_stick_y);
                 BRmotor.setPower(gamepad1.left_stick_y);
 
                 FLmotor.setPower(gamepad1.right_stick_y);
                 BLmotor.setPower(gamepad1.right_stick_y);
-            }
 
             /**BIND SWTICH PENTRU BANDA RULANTA KAUFLAND 1
-             * BUTON Y*/
-            if(true){
+             * BUTON Y/JOISTICK*/
                 if((gamepad2.y==true)&&(booly1==false)) {booly2=true;}
                 if(booly2==true) {T1motor.setPower(1);}
                 if((gamepad2.y==false)&&(booly2==true)) {booly1=true;}
                 if((gamepad2.y==true)&&(booly1==true)) {booly2=false;}
-                if(booly2==false) {T1motor.setPower(0);
-                                    T1motor.setPower(0);} //sau 0
+                if(booly2==false) {T1motor.setPower(gamepad2.left_stick_y);}
                 if((gamepad2.y==false)&&(booly2==false)) {booly1=false;}
                 telemetry.addData("BandaRulantaKaufland", booly2);
                 telemetry.update();
 
-            }
-
-
             /**BIND PT MISCAREA LATERALA
              * BUTON BUMPERS*/
-            if(true) {
-                while (gamepad1.left_bumper == true) {
-                    FRmotor.setPower(-1);
+                if (gamepad1.left_bumper) {                 /**MISCARE LATERALA STANGA*/
+                    FRmotor.setPower(-1);                   /**BIND LEFT BUMPER*/
                     BRmotor.setPower(1);
-
                     FLmotor.setPower(1);
                     BLmotor.setPower(-1);}
-                while (gamepad1.right_bumper == true) {
-                    FRmotor.setPower(1);
-                    BRmotor.setPower(-1);
 
+                if (gamepad1.right_bumper) {                /**MISCARE LATERALA DREAPTA*/
+                    FRmotor.setPower(1);                    /**BIND RIGHT BUMPER*/
+                    BRmotor.setPower(-1);
                     FLmotor.setPower(-1);
                     BLmotor.setPower(1);}
-            }
-            /**BIND
-             * B*/
-            if(true) {
-                T2motor.setPower(-gamepad2.left_trigger);
-                T2motor.setPower(gamepad2.right_trigger);
-                if(gamepad2.left_bumper) SVmotor1.setPosition(1);
-                if(gamepad2.right_bumper) SVmotor1.setPosition(0);
 
-                if(gamepad2.a) SVmotor2.setPosition(1);
-                if(gamepad2.b) SVmotor2.setPosition(0);
+                    FRmotor.setPower(0);                    /**RESETARE VALORI*/
+                    BRmotor.setPower(0);
+                    FLmotor.setPower(0);
+                    BLmotor.setPower(0);
 
-            }
-
+            /**BIND BRAT
+             * G2 BUMPERS/A/B/X/JOYSTICK*/
+                if(gamepad2.left_bumper) SVmotor1.setPosition(0);   /**IN CLESTE*/
+                if(gamepad2.right_bumper) SVmotor1.setPosition(1);
+                if(gamepad2.x) SVmotor1.setPosition(0);
+                if(gamepad2.a) SVmotor2.setPosition(0.5);
+                if(gamepad2.b) SVmotor2.setPosition(1);
+                SVmotor3.setPosition(gamepad2.right_stick_y/2+0.5);
 
             /**BIND PT MISCARE FINA FATA-SPATE-LATERALE
              * BUTON D-PAD*/
-            if(true){
-                while (gamepad1.dpad_up == true){
+
+                if (gamepad1.dpad_up){
                     FRmotor.setPower(-0.25);
                     BRmotor.setPower(-0.25);
                     FLmotor.setPower(-0.25);
                     BLmotor.setPower(-0.25);}
-                while (gamepad1.dpad_down == true){
+                if (gamepad1.dpad_down){
                     FRmotor.setPower(0.25);
                     BRmotor.setPower(0.25);
                     FLmotor.setPower(0.25);
                     BLmotor.setPower(0.25);}
-                while (gamepad1.dpad_left == true){
+                if (gamepad1.dpad_left){
                     FRmotor.setPower(-0.25);
                     BRmotor.setPower(0.25);
                     FLmotor.setPower(0.25);
                     BLmotor.setPower(-0.25);}
-                while (gamepad1.dpad_right == true){
+                if (gamepad1.dpad_right){
                     FRmotor.setPower(0.25);
                     BRmotor.setPower(-0.25);
                     FLmotor.setPower(-0.25);
                     BLmotor.setPower(0.25);}
-            }
+            FRmotor.setPower(0);
+            BRmotor.setPower(0);
+            FLmotor.setPower(0);
+            BLmotor.setPower(0);
         }
     }
 }
