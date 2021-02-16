@@ -88,8 +88,8 @@ public class DriverDob extends LinearOpMode {
                 if(booly2==true) {T1motor.setPower(1);}
                 if((gamepad2.y==false)&&(booly2==true)) {booly1=true;}
                 if((gamepad2.y==true)&&(booly1==true)) {booly2=false;}
-                if(booly2==false) {T1motor.setPower(-gamepad2.left_trigger);
-                                    T1motor.setPower(gamepad2.right_trigger);} //sau 0
+                if(booly2==false) {T1motor.setPower(0);
+                                    T1motor.setPower(0);} //sau 0
                 if((gamepad2.y==false)&&(booly2==false)) {booly1=false;}
                 telemetry.addData("BandaRulantaKaufland", booly2);
                 telemetry.update();
