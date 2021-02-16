@@ -115,12 +115,12 @@ public class DriverDob extends LinearOpMode {
 
             /**BIND BRAT
              * G2 BUMPERS/A/B/X/JOYSTICK*/
-                if(gamepad2.left_bumper) SVmotor1.setPosition(0);   /**IN CLESTE*/
-                if(gamepad2.right_bumper) SVmotor1.setPosition(1);
-                if(gamepad2.x) SVmotor1.setPosition(0);
-                if(gamepad2.a) SVmotor2.setPosition(0.5);
-                if(gamepad2.b) SVmotor2.setPosition(1);
-                SVmotor3.setPosition(gamepad2.right_stick_y/2+0.5);
+                if(gamepad2.left_bumper) SVmotor2.setPosition(0.5);     /**DESCHIDERE CLESTE*/
+                if(gamepad2.right_bumper) SVmotor2.setPosition(1);      /**INCHIDERE CLESTE*/
+                if(gamepad2.x) SVmotor1.setPosition(0);         /**ROTATIE CAP DE BRAT*/
+                if(gamepad2.a) SVmotor1.setPosition(0.5);
+                if(gamepad2.b) SVmotor1.setPosition(1);
+                SVmotor3.setPosition(gamepad2.right_stick_y/2+0.5);     /**RIDICARE/COBORARE BRAT*/
 
             /**BIND PT MISCARE FINA FATA-SPATE-LATERALE
              * BUTON D-PAD*/
