@@ -196,8 +196,8 @@ public class DriverDob extends LinearOpMode {
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
-            if(booly10==false) telemetry.addData("Claw","Open");
-            if(booly10==true) telemetry.addData("Claw","Closed");
+            if(booly10==false) telemetry.addData("Claw","Closed");
+            if(booly10==true) telemetry.addData("Claw","Open");
 
             telemetry.update();
 
