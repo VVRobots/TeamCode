@@ -2,14 +2,18 @@
 package org.firstinspires.ftc.teamcode;
 
 //Librarii
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.AnalogOutput;
 import com.qualcomm.robotcore.hardware.AnalogOutputController;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name="DriverDob", group="Linear Opmode")
 public class DriverDob extends LinearOpMode {
@@ -27,6 +31,10 @@ public class DriverDob extends LinearOpMode {
     private Servo SVmotor3=null;
     private Servo SVmotor4=null;
     private int marsarier=1;
+
+    private ColorRangeSensor lowSensor =null;
+    private Rev2mDistanceSensor highSensor = null;
+
     //private DigitalChannel sA=null;
     //private DigitalChannel sB=null;
     boolean booly1=false;
@@ -54,6 +62,8 @@ public class DriverDob extends LinearOpMode {
         SVmotor2=hardwareMap.get(Servo.class,"servoBrat2");
         SVmotor3=hardwareMap.get(Servo.class,"servoBrat3");
         SVmotor4=hardwareMap.get(Servo.class, "servoLansator");
+        lowSensor =  hardwareMap.get(ColorRangeSensor.class, "senzorCuloare");
+        highSensor = hardwareMap.get(Rev2mDistanceSensor.class, "senzorDistanta");
         //sA=hardwareMap.get(DigitalChannel.class,"semD");
         //sB=hardwareMap.get(DigitalChannel.class, "semS");
 
@@ -166,8 +176,8 @@ public class DriverDob extends LinearOpMode {
                 if(gamepad2.dpad_right) SVmotor1.setPosition(1);
                 SVmotor3.setPosition(-gamepad2.right_stick_y/2+0.5);     /**RIDICARE/COBORARE BRAT*/
 
-                if(gamepad2.left_bumper) SVmotor1.setPosition(SVmotor1.getPosition()-0.002);
-                if(gamepad2.right_bumper) SVmotor1.setPosition(SVmotor1.getPosition()+0.002);
+                if(gamepad2.left_bumper) SVmotor1.setPosition(SVmotor1.getPosition()-0.005);
+                if(gamepad2.right_bumper) SVmotor1.setPosition(SVmotor1.getPosition()+0.005);
 
             if((gamepad2.x==true)&&(booly10==false)) {booly20=true;}
             if(booly20==true) {SVmotor2.setPosition(0.4);;}
@@ -180,38 +190,38 @@ public class DriverDob extends LinearOpMode {
              * G1 BUTON D-PAD*/
 
                 if (gamepad1.dpad_up){
-                    FRmotor.setPower(-0.3*marsarier);
-                    BRmotor.setPower(-0.3*marsarier);
-                    FLmotor.setPower(-0.3*marsarier);
-                    BLmotor.setPower(-0.3*marsarier);}
+                    FRmotor.setPower(-0.45*marsarier);
+                    BRmotor.setPower(-0.45*marsarier);
+                    FLmotor.setPower(-0.45*marsarier);
+                    BLmotor.setPower(-0.45*marsarier);}
                 if (gamepad1.dpad_down){
-                    FRmotor.setPower(0.3*marsarier);
-                    BRmotor.setPower(0.3*marsarier);
-                    FLmotor.setPower(0.3*marsarier);
-                    BLmotor.setPower(0.3*marsarier);}
+                    FRmotor.setPower(0.45*marsarier);
+                    BRmotor.setPower(0.45*marsarier);
+                    FLmotor.setPower(0.45*marsarier);
+                    BLmotor.setPower(0.45*marsarier);}
                 if (gamepad1.dpad_left){
-                    FRmotor.setPower(-0.3*marsarier);
-                    BRmotor.setPower(0.3*marsarier);
-                    FLmotor.setPower(0.3*marsarier);
-                    BLmotor.setPower(-0.3*marsarier);}
+                    FRmotor.setPower(-0.45*marsarier);
+                    BRmotor.setPower(0.45*marsarier);
+                    FLmotor.setPower(0.45*marsarier);
+                    BLmotor.setPower(-0.45*marsarier);}
                 if (gamepad1.dpad_right){
-                    FRmotor.setPower(0.3*marsarier);
-                    BRmotor.setPower(-0.3*marsarier);
-                    FLmotor.setPower(-0.3*marsarier);
-                    BLmotor.setPower(0.3*marsarier);}
+                    FRmotor.setPower(0.45*marsarier);
+                    BRmotor.setPower(-0.45*marsarier);
+                    FLmotor.setPower(-0.45*marsarier);
+                    BLmotor.setPower(0.45*marsarier);}
             FRmotor.setPower(0);
             BRmotor.setPower(0);
             FLmotor.setPower(0);
             BLmotor.setPower(0);
 
-
-
-            if(booly100==false) telemetry.addData("Gearbox","1st Gear");
-            if(booly100==true) telemetry.addData("Gearbox","Reverse");
+            if(booly100==false) {telemetry.addData("Gearbox","1st Gear"); lowSensor.enableLed(false);}
+            if(booly100==true) {telemetry.addData("Gearbox","Reverse"); lowSensor.enableLed(true);}
             if(booly2==false) telemetry.addData("Ramp","Manual");
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
+            telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
 
             telemetry.update();
 

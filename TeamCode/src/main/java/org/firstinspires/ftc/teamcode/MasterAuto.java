@@ -21,24 +21,40 @@ public class MasterAuto extends LinearOpMode {
     private final double countsPerCM = actualCountsPerRev / circumference;
     private int nrRings = 0;
 
-    private final DcMotor FRwheelMotor=hardwareMap.get(DcMotor.class,"fataDreapta");
-    private final DcMotor FLwheelMotor=hardwareMap.get(DcMotor.class,"fataStanga");
-    private final DcMotor BRwheelMotor=hardwareMap.get(DcMotor.class,"spateDreapta");
-    private final DcMotor BLwheelMotor=hardwareMap.get(DcMotor.class,"spateStanga");
+    private DcMotor FRwheelMotor= null;
+    private DcMotor FLwheelMotor=null;
+    private DcMotor BRwheelMotor=null;
+    private DcMotor BLwheelMotor=null;
 
-    private final DcMotor rampMotor = hardwareMap.get(DcMotor.class,"motorTraction1");
-    private final DcMotor launchMotor = hardwareMap.get(DcMotor.class,"motorTraction2");
+    private DcMotor rampMotor = null;
+    private DcMotor launchMotor = null;
 
-    private final Servo armServo = hardwareMap.get(Servo.class,"motorBrat3");
-    private final Servo jointServo = hardwareMap.get(Servo.class,"motorBrat1");
-    private final Servo clawServo = hardwareMap.get(Servo.class,"motorBrat2");
+    private Servo armServo = null;
+    private Servo jointServo = null;
+    private Servo clawServo = null;
 
-    private final ColorRangeSensor lowSensor = hardwareMap.get(ColorRangeSensor.class, "senzorCuloare");
-    private final Rev2mDistanceSensor highSensor = hardwareMap.get(Rev2mDistanceSensor.class, "senzorDistanta");
+    private  ColorRangeSensor lowSensor = null;
+    private  Rev2mDistanceSensor highSensor = null;
 
     @Override
     public void runOpMode()
     {
+
+        lowSensor = hardwareMap.get(ColorRangeSensor.class, "senzorCuloare");
+        highSensor = hardwareMap.get(Rev2mDistanceSensor.class, "senzorDistanta");
+
+        FRwheelMotor = hardwareMap.get(DcMotor.class,"fataDreapta");
+        FLwheelMotor = hardwareMap.get(DcMotor.class,"fataStanga");
+        BRwheelMotor = hardwareMap.get(DcMotor.class,"spateDreapta");
+        BLwheelMotor = hardwareMap.get(DcMotor.class,"spateStanga");
+
+        rampMotor = hardwareMap.get(DcMotor.class,"motorTraction1");
+        launchMotor = hardwareMap.get(DcMotor.class,"motorTraction2");
+
+        armServo = hardwareMap.get(Servo.class,"servoBrat3");
+        jointServo = hardwareMap.get(Servo.class,"servoBrat1");
+        clawServo = hardwareMap.get(Servo.class,"servoBrat2");
+
 
         FRwheelMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FLwheelMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -86,8 +102,8 @@ public class MasterAuto extends LinearOpMode {
         waitForStart();
         while(opModeIsActive())
         {
-            DriveTo(1,-15,-15,15,-15);
             DriveTo(1,60,60,60,60);
+            DriveTo(1,-15,-15,15,-15);
 
             if(lowSensor.getDistance(DistanceUnit.CM) <10.0)
             {
@@ -101,7 +117,10 @@ public class MasterAuto extends LinearOpMode {
 
             switch(nrRings)
             {
-
+                case 0:
+                {
+                    
+                }
             }
 
 
