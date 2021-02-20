@@ -1,0 +1,73 @@
+Index: TeamCode/src/main/java/org/firstinspires/ftc/teamcode/DriverDob.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/**Copyright Dobrinel */\r\npackage org.firstinspires.ftc.teamcode;\r\n\r\n//Librarii\r\nimport com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\r\nimport com.qualcomm.robotcore.eventloop.opmode.TeleOp;\r\nimport com.qualcomm.robotcore.hardware.AnalogOutput;\r\nimport com.qualcomm.robotcore.hardware.AnalogOutputController;\r\nimport com.qualcomm.robotcore.hardware.DcMotor;\r\nimport com.qualcomm.robotcore.hardware.DigitalChannel;\r\nimport com.qualcomm.robotcore.hardware.Servo;\r\nimport com.qualcomm.robotcore.hardware.DcMotorSimple;\r\n\r\n@TeleOp(name=\"DriverDob\", group=\"Linear Opmode\")\r\npublic class DriverDob extends LinearOpMode {\r\n\r\n    /**DECLARARE VARIABILE/OBIECTE*/\r\n\r\n    private DcMotor FRmotor=null;\r\n    private DcMotor FLmotor=null;\r\n    private DcMotor BRmotor=null;\r\n    private DcMotor BLmotor=null;\r\n    private DcMotor T1motor=null;\r\n    private DcMotor T2motor=null;\r\n    private Servo SVmotor1=null;\r\n    private Servo SVmotor2=null;\r\n    private Servo SVmotor3=null;\r\n    private int marsarier=1;\r\n    //private DigitalChannel sA=null;\r\n    //private DigitalChannel sB=null;\r\n    boolean booly1=false;\r\n    boolean booly2=false;\r\n    boolean booly10=false;\r\n    boolean booly20=false;\r\n    boolean booly100=false;\r\n    boolean booly200=false;\r\n    boolean booly1000=false;\r\n    boolean booly2000=false;\r\n\r\n    @Override\r\n    public void runOpMode() {\r\n\r\n        /**SETUP MOTOARE*/\r\n        FRmotor=hardwareMap.get(DcMotor.class,\"fataDreapta\");\r\n        FLmotor=hardwareMap.get(DcMotor.class,\"fataStanga\");\r\n        BRmotor=hardwareMap.get(DcMotor.class,\"spateDreapta\");\r\n        BLmotor=hardwareMap.get(DcMotor.class,\"spateStanga\");\r\n        T1motor=hardwareMap.get(DcMotor.class,\"motorTraction1\");\r\n        T2motor=hardwareMap.get(DcMotor.class,\"motorTraction2\");\r\n        SVmotor1=hardwareMap.get(Servo.class,\"servoBrat1\");\r\n        SVmotor2=hardwareMap.get(Servo.class,\"servoBrat2\");\r\n        SVmotor3=hardwareMap.get(Servo.class,\"servoBrat3\");\r\n        //sA=hardwareMap.get(DigitalChannel.class,\"semD\");\r\n        //sB=hardwareMap.get(DigitalChannel.class, \"semS\");\r\n\r\n\r\n        FRmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n        FLmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n        BRmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n        BLmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n        T1motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n        T2motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);\r\n\r\n\r\n        FRmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n        FLmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n        BRmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n        BLmotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n        T1motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n        T2motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);\r\n\r\n        FRmotor.setDirection(DcMotorSimple.Direction.FORWARD);\r\n        BRmotor.setDirection(DcMotorSimple.Direction.FORWARD);\r\n\r\n        FLmotor.setDirection(DcMotorSimple.Direction.REVERSE);\r\n        BLmotor.setDirection(DcMotorSimple.Direction.REVERSE);\r\n\r\n        SVmotor1.setDirection(Servo.Direction.FORWARD);\r\n        SVmotor1.setPosition(0);\r\n        SVmotor2.setDirection(Servo.Direction.FORWARD);\r\n        SVmotor2.setPosition(1);\r\n        SVmotor3.setDirection(Servo.Direction.FORWARD);\r\n        SVmotor3.setPosition(0.5);\r\n\r\n        telemetry.addData(\"Status\", \"Initializat\");\r\n        telemetry.update();\r\n        /**AICI INCEPE DISTRACTIA*/\r\n        waitForStart();\r\n\r\n        while (opModeIsActive()) {\r\n            /**BIND MISCARE PRIMARA ROTI 2 CATE 2 PE LATERALE\r\n             * G1 BUTON JOYSTICK AXA Y*/\r\n            /**++MARSARIER*/\r\n            if((gamepad1.back==true)&&(booly100==false)) {booly200=true;}\r\n            if(booly200==true) {\r\n                marsarier=-1;\r\n                FRmotor.setPower(gamepad1.right_stick_y*marsarier);\r\n                BRmotor.setPower(gamepad1.right_stick_y*marsarier);\r\n                FLmotor.setPower(gamepad1.left_stick_y*marsarier);\r\n                BLmotor.setPower(gamepad1.left_stick_y*marsarier); }\r\n            if((gamepad1.back==false)&&(booly200==true)) {booly100=true;}\r\n            if((gamepad1.back==true)&&(booly100==true)) {booly200=false;}\r\n            if(booly200==false) {\r\n                marsarier=1;\r\n                FRmotor.setPower(gamepad1.left_stick_y*marsarier);\r\n                BRmotor.setPower(gamepad1.left_stick_y*marsarier);\r\n                FLmotor.setPower(gamepad1.right_stick_y*marsarier);\r\n                BLmotor.setPower(gamepad1.right_stick_y*marsarier);}\r\n            if((gamepad1.back==false)&&(booly200==false)) {booly100=false;}\r\n\r\n            /**BIND SWTICH PENTRU BANDA RULANTA KAUFLAND 1\r\n             * G2 BUTON Y/JOISTICK*/\r\n            if((gamepad2.y==true)&&(booly1==false)) {booly2=true;}\r\n            if(booly2==true) {T1motor.setPower(1);}\r\n            if((gamepad2.y==false)&&(booly2==true)) {booly1=true;}\r\n            if((gamepad2.y==true)&&(booly1==true)) {booly2=false;}\r\n            if(booly2==false) {T1motor.setPower(gamepad2.left_stick_y);}\r\n            if((gamepad2.y==false)&&(booly2==false)) {booly1=false;}\r\n\r\n            /**BIND SWTICH PENTRU LANSATOR PRODUSE KAUFLAND 2\r\n             * G2 BUTON A*/\r\n            if((gamepad2.a==true)&&(booly1000==false)) {booly2000=true;}\r\n            if(booly2000==true) {T2motor.setPower(1);}\r\n            if((gamepad2.a==false)&&(booly2000==true)) {booly1000=true;}\r\n            if((gamepad2.a==true)&&(booly1000==true)) {booly2000=false;}\r\n            if(booly2000==false) {T2motor.setPower(0);}\r\n            if((gamepad2.a==false)&&(booly2000==false)) {booly1000=false;}\r\n\r\n            /**BIND PT MISCAREA LATERALA\r\n             * G1 BUTON BUMPERS*/\r\n            if (gamepad1.left_bumper) {                 /**MISCARE LATERALA STANGA*/\r\n                FRmotor.setPower(-1*marsarier);                   /**BIND LEFT BUMPER*/\r\n                BRmotor.setPower(1*marsarier);\r\n                FLmotor.setPower(1*marsarier);\r\n                BLmotor.setPower(-1*marsarier);}\r\n            if (gamepad1.right_bumper) {                /**MISCARE LATERALA DREAPTA*/\r\n                FRmotor.setPower(1*marsarier);                    /**BIND RIGHT BUMPER*/\r\n                BRmotor.setPower(-1*marsarier);\r\n                FLmotor.setPower(-1*marsarier);\r\n                BLmotor.setPower(1*marsarier);}\r\n            FRmotor.setPower(0);                    /**RESETARE VALORI*/\r\n            BRmotor.setPower(0);\r\n            FLmotor.setPower(0);\r\n            BLmotor.setPower(0);\r\n\r\n            /**BIND BRAT\r\n             * G2 BUMPERS/DPAD LEFT-UP-RIGHT/JOYSTICK*/\r\n            if(gamepad2.dpad_left) SVmotor1.setPosition(0);         /**ROTATIE CAP DE BRAT*/\r\n            if(gamepad2.dpad_up) SVmotor1.setPosition(0.7);\r\n            if(gamepad2.dpad_right) SVmotor1.setPosition(1);\r\n            SVmotor3.setPosition(-gamepad2.right_stick_y/2+0.5);     /**RIDICARE/COBORARE BRAT*/\r\n\r\n            if(gamepad2.left_bumper) SVmotor1.setPosition(SVmotor1.getPosition()-0.002);\r\n            if(gamepad2.right_bumper) SVmotor1.setPosition(SVmotor1.getPosition()+0.002);\r\n\r\n            if((gamepad2.x==true)&&(booly10==false)) {booly20=true;}\r\n            if(booly20==true) {SVmotor2.setPosition(0.4);;}\r\n            if((gamepad2.x==false)&&(booly20==true)) {booly10=true;}\r\n            if((gamepad2.x==true)&&(booly10==true)) {booly20=false;}\r\n            if(booly20==false) {SVmotor2.setPosition(1);;}\r\n            if((gamepad2.x==false)&&(booly20==false)) {booly10=false;}\r\n\r\n            /**BIND PT MISCARE FINA FATA-SPATE-LATERALE\r\n             * G1 BUTON D-PAD*/\r\n\r\n            if (gamepad1.dpad_up){\r\n                FRmotor.setPower(-0.3*marsarier);\r\n                BRmotor.setPower(-0.3*marsarier);\r\n                FLmotor.setPower(-0.3*marsarier);\r\n                BLmotor.setPower(-0.3*marsarier);}\r\n            if (gamepad1.dpad_down){\r\n                FRmotor.setPower(0.3*marsarier);\r\n                BRmotor.setPower(0.3*marsarier);\r\n                FLmotor.setPower(0.3*marsarier);\r\n                BLmotor.setPower(0.3*marsarier);}\r\n            if (gamepad1.dpad_left){\r\n                FRmotor.setPower(-0.3*marsarier);\r\n                BRmotor.setPower(0.3*marsarier);\r\n                FLmotor.setPower(0.3*marsarier);\r\n                BLmotor.setPower(-0.3*marsarier);}\r\n            if (gamepad1.dpad_right){\r\n                FRmotor.setPower(0.3*marsarier);\r\n                BRmotor.setPower(-0.3*marsarier);\r\n                FLmotor.setPower(-0.3*marsarier);\r\n                BLmotor.setPower(0.3*marsarier);}\r\n            FRmotor.setPower(0);\r\n            BRmotor.setPower(0);\r\n            FLmotor.setPower(0);\r\n            BLmotor.setPower(0);\r\n\r\n\r\n\r\n            if(booly100==false) telemetry.addData(\"Gearbox\",\"1st Gear\");\r\n            if(booly100==true) telemetry.addData(\"Gearbox\",\"Reverse\");\r\n            if(booly2==false) telemetry.addData(\"Ramp\",\"Manual\");\r\n            if(booly2==true) telemetry.addData(\"Ramp\",\"Full Throttle\");\r\n            if(booly2000==false) telemetry.addData(\"Launcher\",\"Off\");\r\n            if(booly2000==true) telemetry.addData(\"Launcher\",\"Full Throttle\");\r\n            if(booly10==false) telemetry.addData(\"Claw\",\"Closed\");\r\n            if(booly10==true) telemetry.addData(\"Claw\",\"Open\");\r\n\r\n            telemetry.update();\r\n\r\n        }   /**while (opModeIsActive())*/\r\n    }   /**RunOpMode*/\r\n}   /**LinearOpMode*/\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- TeamCode/src/main/java/org/firstinspires/ftc/teamcode/DriverDob.java	(revision 1d616b1c268f9a8e05f308ff8c201e853b491685)
++++ TeamCode/src/main/java/org/firstinspires/ftc/teamcode/DriverDob.java	(date 1613801933933)
+@@ -25,6 +25,7 @@
+     private Servo SVmotor1=null;
+     private Servo SVmotor2=null;
+     private Servo SVmotor3=null;
++    private Servo SVmotor4=null;
+     private int marsarier=1;
+     //private DigitalChannel sA=null;
+     //private DigitalChannel sB=null;
+@@ -36,6 +37,8 @@
+     boolean booly200=false;
+     boolean booly1000=false;
+     boolean booly2000=false;
++    boolean booly10000=false;
++    boolean booly20000=false;
+ 
+     @Override
+     public void runOpMode() {
+@@ -50,6 +53,7 @@
+         SVmotor1=hardwareMap.get(Servo.class,"servoBrat1");
+         SVmotor2=hardwareMap.get(Servo.class,"servoBrat2");
+         SVmotor3=hardwareMap.get(Servo.class,"servoBrat3");
++        SVmotor4=hardwareMap.get(Servo.class,"servoLansator");
+         //sA=hardwareMap.get(DigitalChannel.class,"semD");
+         //sB=hardwareMap.get(DigitalChannel.class, "semS");
+ 
+@@ -75,12 +79,16 @@
+         FLmotor.setDirection(DcMotorSimple.Direction.REVERSE);
+         BLmotor.setDirection(DcMotorSimple.Direction.REVERSE);
+ 
++        T2motor.setDirection(DcMotorSimple.Direction.REVERSE);
++
+         SVmotor1.setDirection(Servo.Direction.FORWARD);
+         SVmotor1.setPosition(0);
+         SVmotor2.setDirection(Servo.Direction.FORWARD);
+         SVmotor2.setPosition(1);
+         SVmotor3.setDirection(Servo.Direction.FORWARD);
+         SVmotor3.setPosition(0.5);
++        SVmotor4.setDirection(Servo.Direction.FORWARD);
++        SVmotor4.setPosition(0.5);
+ 
+         telemetry.addData("Status", "Initializat");
+         telemetry.update();
+@@ -126,6 +134,19 @@
+             if(booly2000==false) {T2motor.setPower(0);}
+             if((gamepad2.a==false)&&(booly2000==false)) {booly1000=false;}
+ 
++
++                /**BIND SWTICH PENTRU PALETA LANSATOR
++                * G2 BUTON B*/
++            if((gamepad2.b==true)&&(booly10000==false)) {booly20000=true;}
++            if(booly20000==true) {SVmotor4.setPosition(0);;}
++            if((gamepad2.b==false)&&(booly20000==true)) {booly10000=true;}
++            if((gamepad2.b==true)&&(booly10000==true)) {booly20000=false;}
++            if(booly20000==false) {SVmotor4.setPosition(1);;}
++            if((gamepad2.b==false)&&(booly20000==false)) {booly10000=false;}
++
++
++
++
+             /**BIND PT MISCAREA LATERALA
+              * G1 BUTON BUMPERS*/
+             if (gamepad1.left_bumper) {                 /**MISCARE LATERALA STANGA*/
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_2_19_2021_11_59_AM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Checkout_at_2_19_2021_11_59_AM__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2021_1_01_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Checkout_at_2_12_2021_1_01_PM__Default_Changelist_.xml
