@@ -21,10 +21,10 @@ public class MasterAuto extends LinearOpMode {
     private final double countsPerCM = actualCountsPerRev / circumference;
     private int nrRings = 0;
 
-    private DcMotor FRwheelMotor= null;
-    private DcMotor FLwheelMotor=null;
-    private DcMotor BRwheelMotor=null;
-    private DcMotor BLwheelMotor=null;
+    private DcMotor FRwheelMotor = null;
+    private DcMotor FLwheelMotor = null;
+    private DcMotor BRwheelMotor = null;
+    private DcMotor BLwheelMotor = null;
 
     private DcMotor rampMotor = null;
     private DcMotor launchMotor = null;

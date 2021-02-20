@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.AnalogOutput;
 import com.qualcomm.robotcore.hardware.AnalogOutputController;
 import com.qualcomm.robotcore.hardware.ColorRangeSensor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -63,6 +64,8 @@ public class DriverDob extends LinearOpMode {
         SVmotor3=hardwareMap.get(Servo.class,"servoBrat3");
         SVmotor4=hardwareMap.get(Servo.class, "servoLansator");
         lowSensor =  hardwareMap.get(ColorRangeSensor.class, "senzorCuloare");
+
+        lowSensor.enableLed(true);
         highSensor = hardwareMap.get(Rev2mDistanceSensor.class, "senzorDistanta");
         //sA=hardwareMap.get(DigitalChannel.class,"semD");
         //sB=hardwareMap.get(DigitalChannel.class, "semS");
@@ -88,6 +91,7 @@ public class DriverDob extends LinearOpMode {
 
         FLmotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BLmotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        T2motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         SVmotor1.setDirection(Servo.Direction.FORWARD);
         SVmotor1.setPosition(0);
@@ -136,8 +140,9 @@ public class DriverDob extends LinearOpMode {
             /**BIND SWTICH PENTRU LANSATOR PRODUSE KAUFLAND 2
              * G2 BUTON A*/
             if((gamepad2.a==true)&&(booly1000==false)) {booly2000=true;}
-            if(booly2000==true) {T2motor.setPower(1);}
+            if(booly2000==true) {T2motor.setPower(0.3);}
             if((gamepad2.a==false)&&(booly2000==true)) {booly1000=true;}
+            if(booly1000=true) {T2motor.setPower(1);}
             if((gamepad2.a==true)&&(booly1000==true)) {booly2000=false;}
             if(booly2000==false) {T2motor.setPower(0);}
             if((gamepad2.a==false)&&(booly2000==false)) {booly1000=false;}
@@ -214,14 +219,16 @@ public class DriverDob extends LinearOpMode {
             FLmotor.setPower(0);
             BLmotor.setPower(0);
 
-            if(booly100==false) {telemetry.addData("Gearbox","1st Gear"); lowSensor.enableLed(false);}
-            if(booly100==true) {telemetry.addData("Gearbox","Reverse"); lowSensor.enableLed(true);}
+            lowSensor.enableLed(booly100);
+
+            if(booly100==false) telemetry.addData("Gearbox","1st Gear");
+            if(booly100==true) telemetry.addData("Gearbox","Reverse");
             if(booly2==false) telemetry.addData("Ramp","Manual");
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
-            telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
-            telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
+            //telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
+            //telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
 
             telemetry.update();
 
