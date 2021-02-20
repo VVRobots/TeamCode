@@ -106,9 +106,9 @@ public class MasterAuto extends LinearOpMode {
             DriveTo(1,60,60,60,60);
             DriveTo(1,-15,-15,15,-15);
 
-            if(lowSensor.getDistance(DistanceUnit.CM) <9.0)
+            if(lowSensor.getDistance(DistanceUnit.CM) <15.0)
             {
-                    if(highSensor.getDistance(DistanceUnit.CM) <10.0)
+                    if(highSensor.getDistance(DistanceUnit.CM) <15.0)
                     {
                         nrRings=4;
                     }

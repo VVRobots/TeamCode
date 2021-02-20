@@ -48,7 +48,14 @@ public class DriverDob extends LinearOpMode {
     boolean booly2000=false;
     boolean booly10000=false;
     boolean booly20000=false;
-
+    Thread paletaThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            SVmotor4.setPosition(1);
+            sleep(500);
+            SVmotor4.setPosition(0);
+        }
+    });
     @Override
     public void runOpMode() {
 
@@ -150,12 +157,14 @@ public class DriverDob extends LinearOpMode {
 
             /**BIND SWTICH PENTRU PALETA LANSATOR
              * G2 BUTON B*/
-            if((gamepad2.b==true)&&(booly10000==false)) {booly20000=true;}
+            /*if((gamepad2.b==true)&&(booly10000==false)) {booly20000=true;}
             if(booly20000==true) {SVmotor4.setPosition(1);}
             if((gamepad2.b==false)&&(booly20000==true)) {booly10000=true;}
             if((gamepad2.b==true)&&(booly10000==true)) {booly20000=false;}
             if(booly20000==false) {SVmotor4.setPosition(0);}
-            if((gamepad2.b==false)&&(booly20000==false)) {booly10000=false;}
+            if((gamepad2.b==false)&&(booly20000==false)) {booly10000=false;}*/
+            if(gamepad2.b && !paletaThread.isAlive())
+                paletaThread.start();
 
             /**BIND PT MISCAREA LATERALA
              * G1 BUTON BUMPERS*/
@@ -227,6 +236,7 @@ public class DriverDob extends LinearOpMode {
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
+            telemetry.addData("ClawServo:",SVmotor2.getPosition());
             telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
 
@@ -234,4 +244,5 @@ public class DriverDob extends LinearOpMode {
 
         }   /**while (opModeIsActive())*/
     }   /**RunOpMode*/
+
 }   /**LinearOpMode*/
