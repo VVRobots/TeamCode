@@ -25,6 +25,7 @@ public class DriverDob extends LinearOpMode {
     private Servo SVmotor1=null;
     private Servo SVmotor2=null;
     private Servo SVmotor3=null;
+    private Servo SVmotor4=null;
     private int marsarier=1;
     //private DigitalChannel sA=null;
     //private DigitalChannel sB=null;
@@ -36,6 +37,8 @@ public class DriverDob extends LinearOpMode {
     boolean booly200=false;
     boolean booly1000=false;
     boolean booly2000=false;
+    boolean booly10000=false;
+    boolean booly20000=false;
 
     @Override
     public void runOpMode() {
@@ -50,6 +53,7 @@ public class DriverDob extends LinearOpMode {
         SVmotor1=hardwareMap.get(Servo.class,"servoBrat1");
         SVmotor2=hardwareMap.get(Servo.class,"servoBrat2");
         SVmotor3=hardwareMap.get(Servo.class,"servoBrat3");
+        SVmotor4=hardwareMap.get(Servo.class, "servoLansator");
         //sA=hardwareMap.get(DigitalChannel.class,"semD");
         //sB=hardwareMap.get(DigitalChannel.class, "semS");
 
@@ -81,6 +85,8 @@ public class DriverDob extends LinearOpMode {
         SVmotor2.setPosition(1);
         SVmotor3.setDirection(Servo.Direction.FORWARD);
         SVmotor3.setPosition(0.5);
+        SVmotor4.setDirection(Servo.Direction.FORWARD);
+        SVmotor4.setPosition(0.5);
 
         telemetry.addData("Status", "Initializat");
         telemetry.update();
@@ -125,6 +131,16 @@ public class DriverDob extends LinearOpMode {
             if((gamepad2.a==true)&&(booly1000==true)) {booly2000=false;}
             if(booly2000==false) {T2motor.setPower(0);}
             if((gamepad2.a==false)&&(booly2000==false)) {booly1000=false;}
+
+
+            /**BIND SWTICH PENTRU PALETA LANSATOR
+             * G2 BUTON B*/
+            if((gamepad2.b==true)&&(booly10000==false)) {booly20000=true;}
+            if(booly20000==true) {SVmotor4.setPosition(1);}
+            if((gamepad2.b==false)&&(booly20000==true)) {booly10000=true;}
+            if((gamepad2.b==true)&&(booly10000==true)) {booly20000=false;}
+            if(booly20000==false) {SVmotor4.setPosition(0);}
+            if((gamepad2.b==false)&&(booly20000==false)) {booly10000=false;}
 
             /**BIND PT MISCAREA LATERALA
              * G1 BUTON BUMPERS*/
@@ -196,8 +212,6 @@ public class DriverDob extends LinearOpMode {
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
-            if(booly10==false) telemetry.addData("Claw","Closed");
-            if(booly10==true) telemetry.addData("Claw","Open");
 
             telemetry.update();
 
