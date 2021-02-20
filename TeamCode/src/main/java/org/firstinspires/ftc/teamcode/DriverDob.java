@@ -140,9 +140,9 @@ public class DriverDob extends LinearOpMode {
             /**BIND SWTICH PENTRU LANSATOR PRODUSE KAUFLAND 2
              * G2 BUTON A*/
             if((gamepad2.a==true)&&(booly1000==false)) {booly2000=true;}
-            if(booly2000==true) {T2motor.setPower(0.3);}
+            if(booly2000==true) {T2motor.setPower(1);}
             if((gamepad2.a==false)&&(booly2000==true)) {booly1000=true;}
-            if(booly1000=true) {T2motor.setPower(1);}
+
             if((gamepad2.a==true)&&(booly1000==true)) {booly2000=false;}
             if(booly2000==false) {T2motor.setPower(0);}
             if((gamepad2.a==false)&&(booly2000==false)) {booly1000=false;}
@@ -227,8 +227,8 @@ public class DriverDob extends LinearOpMode {
             if(booly2==true) telemetry.addData("Ramp","Full Throttle");
             if(booly2000==false) telemetry.addData("Launcher","Off");
             if(booly2000==true) telemetry.addData("Launcher","Full Throttle");
-            //telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
-            //telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("lowSensor:", lowSensor.getDistance(DistanceUnit.CM));
+            telemetry.addData("highSensor:", highSensor.getDistance(DistanceUnit.CM));
 
             telemetry.update();
 

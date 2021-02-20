@@ -19,6 +19,7 @@ public class MasterAuto extends LinearOpMode {
     private final double circumference = Math.PI*diameter;
     private final double actualCountsPerRev = countsPerMotorRev * gearRed;
     private final double countsPerCM = actualCountsPerRev / circumference;
+    private final double robotRadius = 43;
     private int nrRings = 0;
 
     private DcMotor FRwheelMotor = null;
@@ -105,7 +106,7 @@ public class MasterAuto extends LinearOpMode {
             DriveTo(1,60,60,60,60);
             DriveTo(1,-15,-15,15,-15);
 
-            if(lowSensor.getDistance(DistanceUnit.CM) <10.0)
+            if(lowSensor.getDistance(DistanceUnit.CM) <9.0)
             {
                     if(highSensor.getDistance(DistanceUnit.CM) <10.0)
                     {
@@ -115,13 +116,7 @@ public class MasterAuto extends LinearOpMode {
                         nrRings=1;
             }
 
-            switch(nrRings)
-            {
-                case 0:
-                {
-                    
-                }
-            }
+
 
 
 
@@ -132,6 +127,32 @@ public class MasterAuto extends LinearOpMode {
         }
     }
 
+    public void DriveForward(double speed, int distanceCM)
+    {
+        DriveTo(speed,distanceCM,distanceCM,distanceCM,distanceCM);
+    }
+    public void DriveBackwards(double speed, int distanceCM)
+    {
+        DriveTo(speed,-distanceCM,-distanceCM,-distanceCM,-distanceCM);
+    }
+    public void DriveRight(double speed, int distanceCM)
+    {
+        DriveTo(speed,-distanceCM,distanceCM,distanceCM,-distanceCM);
+    }
+    public void DriveLeft(double speed, int distanceCM)
+    {
+        DriveTo(speed,distanceCM,-distanceCM,-distanceCM,+distanceCM);
+    }
+    public void TurnRight(double speed, int degrees)
+    {
+        int distanceCM = (int)(360*robotRadius / degrees);
+        DriveTo(speed,distanceCM,distanceCM,-distanceCM,-distanceCM);
+    }
+    public void TurnLeft(double speed, int degrees)
+    {
+        int distanceCM = (int)(360*robotRadius / degrees);
+        DriveTo(speed,-distanceCM,-distanceCM,distanceCM,distanceCM);
+    }
     public void DriveTo(double speed, int frontRightCM, int backRightCM, int frontLeftCM, int backLeftCM)
     {
 
