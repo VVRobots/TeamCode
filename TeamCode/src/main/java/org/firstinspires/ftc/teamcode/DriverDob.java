@@ -51,9 +51,9 @@ public class DriverDob extends LinearOpMode {
     Thread paletaThread = new Thread(new Runnable() {
         @Override
         public void run() {
+            SVmotor4.setPosition(0.2);
+            sleep(1500);
             SVmotor4.setPosition(1);
-            sleep(500);
-            SVmotor4.setPosition(0);
         }
     });
     @Override
@@ -107,7 +107,7 @@ public class DriverDob extends LinearOpMode {
         SVmotor3.setDirection(Servo.Direction.FORWARD);
         SVmotor3.setPosition(0.5);
         SVmotor4.setDirection(Servo.Direction.FORWARD);
-        SVmotor4.setPosition(0.5);
+        SVmotor4.setPosition(1);
 
         telemetry.addData("Status", "Initializat");
         telemetry.update();
@@ -118,31 +118,27 @@ public class DriverDob extends LinearOpMode {
             /**BIND MISCARE PRIMARA ROTI 2 CATE 2 PE LATERALE
              * G1 BUTON JOYSTICK AXA Y*/
             /**++MARSARIER*/
-                if((gamepad1.back==true)&&(booly100==false)) {booly200=true;}
+                if((gamepad1.a==true)&&(booly100==false)) {booly200=true;}
                 if(booly200==true) {
                     marsarier=-1;
                     FRmotor.setPower(gamepad1.right_stick_y*marsarier);
                     BRmotor.setPower(gamepad1.right_stick_y*marsarier);
                     FLmotor.setPower(gamepad1.left_stick_y*marsarier);
                     BLmotor.setPower(gamepad1.left_stick_y*marsarier); }
-                if((gamepad1.back==false)&&(booly200==true)) {booly100=true;}
-                if((gamepad1.back==true)&&(booly100==true)) {booly200=false;}
+                if((gamepad1.a==false)&&(booly200==true)) {booly100=true;}
+                if((gamepad1.a==true)&&(booly100==true)) {booly200=false;}
                 if(booly200==false) {
                     marsarier=1;
                     FRmotor.setPower(gamepad1.left_stick_y*marsarier);
                     BRmotor.setPower(gamepad1.left_stick_y*marsarier);
                     FLmotor.setPower(gamepad1.right_stick_y*marsarier);
                     BLmotor.setPower(gamepad1.right_stick_y*marsarier);}
-                if((gamepad1.back==false)&&(booly200==false)) {booly100=false;}
+                if((gamepad1.a==false)&&(booly200==false)) {booly100=false;}
 
             /**BIND SWTICH PENTRU BANDA RULANTA KAUFLAND 1
              * G2 BUTON Y/JOISTICK*/
-                if((gamepad2.y==true)&&(booly1==false)) {booly2=true;}
-                if(booly2==true) {T1motor.setPower(1);}
-                if((gamepad2.y==false)&&(booly2==true)) {booly1=true;}
-                if((gamepad2.y==true)&&(booly1==true)) {booly2=false;}
-                if(booly2==false) {T1motor.setPower(gamepad2.left_stick_y);}
-                if((gamepad2.y==false)&&(booly2==false)) {booly1=false;}
+                if(gamepad2.y) T1motor.setPower(1);
+                else T1motor.setPower(gamepad2.left_stick_y);
 
             /**BIND SWTICH PENTRU LANSATOR PRODUSE KAUFLAND 2
              * G2 BUTON A*/

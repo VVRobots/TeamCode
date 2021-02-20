@@ -13,9 +13,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Autonomous(name="MasterAuto", group="Auto")
 public class MasterAuto extends LinearOpMode {
 
-    private final double diameter = 10;
-    private final double countsPerMotorRev = 1800;
-    private final double gearRed = 1;
+    private final double diameter = 9;
+    private final double countsPerMotorRev = 1120;
+    private final double gearRed = 40;
     private final double circumference = Math.PI*diameter;
     private final double actualCountsPerRev = countsPerMotorRev * gearRed;
     private final double countsPerCM = actualCountsPerRev / circumference;
@@ -73,10 +73,10 @@ public class MasterAuto extends LinearOpMode {
         rampMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         launchMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        FRwheelMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FLwheelMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BRwheelMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BLwheelMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FRwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FLwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BRwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BLwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         rampMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -103,10 +103,10 @@ public class MasterAuto extends LinearOpMode {
         waitForStart();
         while(opModeIsActive())
         {
-            DriveTo(1,60,60,60,60);
-            DriveTo(1,-15,-15,15,-15);
+           DriveForward(1,60);
+           DriveRight(1,10);
 
-            if(lowSensor.getDistance(DistanceUnit.CM) <15.0)
+            /*if(lowSensor.getDistance(DistanceUnit.CM) <15.0)
             {
                     if(highSensor.getDistance(DistanceUnit.CM) <15.0)
                     {
@@ -114,11 +114,7 @@ public class MasterAuto extends LinearOpMode {
                     }
                     else
                         nrRings=1;
-            }
-
-
-
-
+            }*/
 
 
             telemetry.addData("Status:","Merge");
@@ -201,6 +197,11 @@ public class MasterAuto extends LinearOpMode {
             BRwheelMotor.setPower(0);
             FLwheelMotor.setPower(0);
             BLwheelMotor.setPower(0);
+
+            FRwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            FLwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            BRwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            BLwheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             sleep(100);
         }
