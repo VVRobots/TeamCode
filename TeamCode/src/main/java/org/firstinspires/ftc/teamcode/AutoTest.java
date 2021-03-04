@@ -45,10 +45,10 @@ public class AutoTest extends LinearOpMode {
     {
 
 
-      FRmotor.setPower(1);
-      FLmotor.setPower(1);
-      BRmotor.setPower(1);
-      BLmotor.setPower(1);
+      FRmotor.setPower(-0.5);
+      FLmotor.setPower(0.5);
+      BRmotor.setPower(0.5);
+      BLmotor.setPower(-0.5);
 
       telemetry.addData("Status:","Merge");
       telemetry.update();
