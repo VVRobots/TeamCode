@@ -63,6 +63,11 @@ public class MasterAuto extends LinearOpMode {
      *
      * Codul presupune ca senzorii sunt montati, daca vreti fara ei comentati liniile
      * relevante din Initialize() si elinimati functia ScanRings() din runOpMode()
+     *
+     * De asemenea presupune ca are 3 inele incarcate pe care incearca sa le dea
+     * in powershot. Nu ia inelele de pe jos.
+     *
+     * PS: Nu garantez ca merge din prima + sigur o sa derapeze iar, aveti mila de sufletelul meu
      **/
 
 
